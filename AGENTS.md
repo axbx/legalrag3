@@ -12,7 +12,7 @@ This repository uses the MVP solo agentic workflow for Codex Desktop.
 ## Operating Model
 
 - Codex Desktop is the local workspace for inspection, edits, checks, and handoff.
-- Linear is the planned cockpit for tasks, statuses, blockers, and review queues. Do not assume it is fully configured yet.
+- Linear is the cockpit for tasks, statuses, blockers, and review queues.
 - OpenSpec is the local spec layer for this project only.
 - GitHub pull requests and CI are the verification layer when repository remotes and checks are available.
 
@@ -35,6 +35,8 @@ Do not create an OpenSpec change for small documentation edits, local workflow n
 - Keep method/workflow changes separate from application behavior changes.
 - Preserve user changes already present in the workspace.
 - Run the most relevant local checks available before handing work back.
+- Use `scripts/linear_cli.py` for routine Linear reads, comments, and status changes when `LINEAR_API_KEY` is configured.
+- Use the browser for Linear only during initial setup, login/authorization, visual inspection, or API-access recovery.
 - State clearly when GitHub, CI, Linear, or OpenSpec validation cannot be verified locally.
 
 ## Completion Handoff

@@ -1,6 +1,8 @@
 # Linear Setup
 
-Linear is the planned visual cockpit for the MVP solo agentic workflow. At the moment, treat Linear as not fully configured: the human has created an account, but project-specific cockpit setup still needs to be done.
+Linear is the visual cockpit for the MVP solo agentic workflow.
+
+The browser is only for initial setup, login, and visual inspection. After setup, routine issue creation, comments, and status changes should use the Linear API helper documented in `docs/linear-api-usage.md`.
 
 ## MVP Goal
 
@@ -167,3 +169,13 @@ Acceptance criteria:
 - OpenSpec is explicitly limited to medium/large behavior, architecture, API, data, and security changes.
 - No production application behavior changes.
 - Local documentation checks pass.
+
+## API Handoff
+
+After the MVP cockpit exists, configure `LINEAR_API_KEY` locally and verify:
+
+```bash
+python3 scripts/linear_cli.py whoami
+```
+
+Normal Codex work should use `scripts/linear_cli.py` rather than browser clicks for Linear issue reads, comments, and status changes.
