@@ -1,12 +1,12 @@
 # OpenSpec Usage
 
-OpenSpec is the spec layer for this project only.
+OpenSpec is the project-local spec layer for `legalrag3`. In the MVP workflow, it is used selectively, not as a gate for every small edit.
 
 ## Local Setup
 
 OpenSpec is initialized in `openspec/`.
 
-Current files:
+Expected structure:
 
 - `openspec/config.yaml`
 - `openspec/specs/`
@@ -15,45 +15,61 @@ Current files:
 
 ## When To Use OpenSpec
 
-Use OpenSpec before implementation when a change affects:
+Create or update an OpenSpec change before implementation when the work is medium or large and affects:
 
-- User-visible behavior.
-- Public APIs or data contracts.
-- Security, permissions, or privacy.
-- Persistent data shape or migrations.
-- Cross-module architecture.
-- Any decision that should survive beyond one coding session.
+- user-visible behavior;
+- architecture or cross-module design;
+- public APIs, data contracts, or integrations;
+- persistent data shape, migrations, or storage semantics;
+- security, permissions, privacy, or compliance-sensitive behavior;
+- a product or technical decision that should be visible after the coding session ends.
 
-Small documentation-only updates, typo fixes, and local workspace notes may be made without a new OpenSpec change.
+## When OpenSpec Is Not Required
+
+Do not create an OpenSpec change for:
+
+- small documentation-only updates;
+- local workflow or setup notes;
+- typo fixes;
+- narrow refactors that preserve behavior;
+- test-only changes that do not redefine expected behavior;
+- repository cleanup that does not affect application behavior.
+
+The user may still explicitly request an OpenSpec change for any task.
+
+## Change Shape
+
+Use one short kebab-case change ID per outcome:
+
+```text
+openspec/changes/<change-id>/
+  proposal.md
+  tasks.md
+  specs/<capability>/spec.md
+```
+
+Add `design.md` only when the design tradeoffs are large enough to justify it.
 
 ## Simple Rules
 
-- Keep each change focused on one outcome.
-- Name changes with short kebab-case identifiers.
-- Put proposed work under `openspec/changes/<change-id>/`.
-- Update accepted project behavior under `openspec/specs/` only after the change is accepted or intentionally synced.
+- Keep each OpenSpec change focused on one outcome.
+- Check existing specs and active changes before adding a new change.
+- Keep project specs under `openspec/specs/`.
+- Keep proposed changes under `openspec/changes/`.
 - Archive completed changes under `openspec/changes/archive/`.
-- Keep specs project-local. Do not reuse this `openspec/` directory for sibling projects.
-
-## Suggested Change Shape
-
-A typical OpenSpec change should include:
-
-- `proposal.md` for intent, scope, and non-goals.
-- `tasks.md` for the implementation checklist.
-- `specs/<capability>/spec.md` for requirement deltas when behavior changes.
+- Do not use this OpenSpec tree for sibling projects.
 
 ## Agent Checklist
 
-Before coding behavior changes:
+Before implementation:
 
-- Confirm the request needs an OpenSpec change.
-- Check existing specs and active changes for overlap.
-- Create or update the relevant change.
-- Keep implementation aligned with the accepted proposal.
+- Decide whether the task crosses the OpenSpec threshold.
+- If yes, create or update the relevant OpenSpec change.
+- If no, state that OpenSpec was intentionally left unchanged.
 
 Before handoff:
 
 - State which OpenSpec files changed.
-- State whether specs were synced or the change remains pending.
-- Note any follow-up needed in Linear or GitHub.
+- State whether the change is active, synced, archived, or intentionally absent.
+- Run `openspec validate --strict` when the OpenSpec CLI is available and OpenSpec artifacts changed.
+- If validation cannot run, state the blocker clearly.

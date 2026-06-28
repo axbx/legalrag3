@@ -1,40 +1,70 @@
 # Agentic Workspace
 
-This project is set up for solo agentic development with Codex Desktop as the local workspace, Linear as the planning cockpit, OpenSpec as the specification layer, and GitHub PR/CI as the verification layer.
+This project is aligned to the MVP solo agentic workflow. The goal is a small, reliable loop for local agent work before introducing Living Spec, gap tracking, custom skills, or drift reports.
 
-## Boundaries
+## Current MVP
 
-All agent work for this project must stay inside `/Users/albert/Projects/legalrag3`.
+The repository currently contains the method layer and an initialized OpenSpec directory:
 
-Sibling projects in the parent Codex Desktop projects directory are out of scope. Agents should not inspect or modify them unless the user explicitly asks and gives the target path.
+- `AGENTS.md`
+- `docs/agentic-workspace.md`
+- `docs/linear-setup.md`
+- `docs/openspec-usage.md`
+- `openspec/config.yaml`
+- `openspec/specs/`
+- `openspec/changes/`
+- `openspec/changes/archive/`
 
 ## Roles
 
-- Linear tracks visible work, status, priorities, and follow-up decisions.
-- OpenSpec records proposed and accepted behavior for this project.
-- Codex Desktop performs local inspection, edits, test runs, and review preparation.
-- GitHub pull requests collect reviewable diffs and CI results when the project has Git metadata and a configured remote.
+- Codex Desktop is the local workspace for inspection, editing, running checks, and preparing handoff notes.
+- Linear is the planned visual cockpit for work status, task scope, blockers, and review queues.
+- OpenSpec records intent for medium or large behavior, architecture, API, data, and security changes.
+- GitHub PRs and CI verify reviewable changes when repository remotes and checks are configured.
 
-## Standard Flow
+## Boundaries
 
-1. Start from a Linear issue or a clear user request.
-2. Inspect this project locally before changing files.
-3. If behavior or requirements are changing, create or update an OpenSpec change first.
-4. Implement the smallest scoped change that satisfies the request.
-5. Run available local checks.
-6. Prepare a reviewable diff for GitHub PR review and CI.
-7. Update Linear with outcome, blockers, and links to the spec or PR when available.
+All work for this project stays inside `/Users/albert/Projects/legalrag3`.
 
-## Current Repository State
+Agents must not inspect or modify sibling projects unless the user explicitly provides another target path.
 
-OpenSpec is initialized in `openspec/` with `openspec/config.yaml`.
+Method-layer work may update `AGENTS.md`, files under `docs/`, and existing OpenSpec setup/configuration documentation. It must not change production application behavior.
 
-At bootstrap time, this folder does not expose Git metadata to local commands, so GitHub PR and CI verification cannot be performed directly from this workspace until Git setup is available here.
+## Standard MVP Flow
 
-## Agent Expectations
+1. Start from a clear user request or a future Linear issue.
+2. Inspect this repository before editing.
+3. Decide whether OpenSpec is required.
+4. If OpenSpec is required, create or update one focused OpenSpec change before implementation.
+5. Make the smallest reviewable change.
+6. Run the most relevant local checks available.
+7. Hand off with summary, changed files, checks, OpenSpec status, Linear updates, and blockers.
 
-- Keep changes small and easy to review.
-- Do not mix workflow documentation with production behavior changes.
-- Do not create cross-project dependencies without explicit approval.
-- Document missing setup instead of assuming external services are already connected.
-- Report verification gaps clearly.
+## OpenSpec Threshold
+
+OpenSpec is required for medium or large changes that affect behavior, architecture, APIs, data shape, migrations, security, permissions, privacy, or other decisions that should survive beyond one coding session.
+
+OpenSpec is not required for small documentation-only edits, local workflow notes, typo fixes, or narrow non-behavioral maintenance unless the user asks for it.
+
+## Phase 2 Out Of Scope
+
+Do not add the following during the MVP setup:
+
+- Living Spec generator.
+- Gap markers or gap sync.
+- Custom Codex skills.
+- Spec drift reports.
+- Linear automation scripts.
+
+These can be added later after the Linear -> Codex -> PR review loop has been smoke-tested.
+
+## Handoff Expectations
+
+At the end of a Codex run, report:
+
+- what changed;
+- which files changed;
+- which checks ran;
+- whether OpenSpec artifacts changed or were intentionally left unchanged;
+- what Linear setup or issue updates still need a human;
+- blockers and useful follow-ups.
