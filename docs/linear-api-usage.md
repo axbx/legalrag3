@@ -17,13 +17,21 @@ Create a personal Linear API key in Linear:
 Settings -> API -> Personal API keys
 ```
 
-Expose it only in your local shell:
+Store it only in your local `.env` file or expose it in your local shell:
+
+```bash
+cp .env.example .env
+# then fill LINEAR_API_KEY in .env
+```
+
+or:
 
 ```bash
 export LINEAR_API_KEY="lin_api_..."
 ```
 
 Do not commit API keys. `.env` files are ignored by Git; `.env.example` is safe and contains no secret value.
+`scripts/linear_cli.py` automatically reads `.env`.
 
 Verify access:
 

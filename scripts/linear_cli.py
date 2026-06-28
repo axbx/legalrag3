@@ -15,6 +15,7 @@ from typing import Any
 
 
 ENDPOINT = "https://api.linear.app/graphql"
+ENV_FILE = Path(__file__).resolve().parents[1] / ".env"
 
 ISSUE_FIELDS = """
 id
@@ -50,10 +51,26 @@ class LinearError(RuntimeError):
     pass
 
 
+def load_dotenv() -> None:
+    if not ENV_FILE.exists():
+        return
+
+    for line in ENV_FILE.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or "=" not in stripped:
+            continue
+        key, value = stripped.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip("\"'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
 def graphql(query: str, variables: dict[str, Any] | None = None) -> dict[str, Any]:
+    load_dotenv()
     token = os.environ.get("LINEAR_API_KEY")
     if not token:
-        raise LinearError("LINEAR_API_KEY is not set")
+        raise LinearError("LINEAR_API_KEY is not set; add it to .env or export it in your shell")
 
     payload = json.dumps({"query": query, "variables": variables or {}}).encode()
     request = urllib.request.Request(
