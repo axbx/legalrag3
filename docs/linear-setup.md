@@ -102,10 +102,6 @@ Method Work
 
 ## Context
 
-## Linked OpenSpec change
-
-Use "Not required" for small non-behavioral work.
-
 ## Acceptance criteria
 
 ## Expected files or areas
@@ -116,7 +112,6 @@ Use "Not required" for small non-behavioral work.
 
 - Code or docs are updated.
 - Relevant checks are run.
-- OpenSpec status is recorded.
 - PR or reviewable diff is ready, when GitHub is available.
 ```
 
@@ -143,12 +138,13 @@ Use "Not required" for small non-behavioral work.
 ## Codex Delegation Comment
 
 ```text
-@Codex work on this in legalrag3.
+@Codex work on this in axbx/legalrag3 on branch main.
 
 Use this Linear issue as the task scope.
-Use OpenSpec only if the task affects medium/large behavior, architecture, API, data, or security concerns.
 Keep the diff focused.
-Update this issue with summary, files changed, checks run, OpenSpec status, PR link if available, and blockers.
+Follow AGENTS.md.
+Open a PR when done, unless this is explicitly an inspection-only task.
+Update this issue with summary, files changed, checks run, PR link if available, and blockers.
 ```
 
 ## First Smoke Test
@@ -165,8 +161,8 @@ Repo: Repo/legalrag3
 Acceptance criteria:
 
 - `AGENTS.md` describes the MVP workflow.
-- `docs/agentic-workspace.md`, `docs/linear-setup.md`, and `docs/openspec-usage.md` exist.
-- OpenSpec is explicitly limited to medium/large behavior, architecture, API, data, and security changes.
+- `docs/agentic-workspace.md`, `docs/linear-setup.md`, and `docs/linear-api-usage.md` exist.
+- Linear `@Codex` can trigger Codex Cloud for `axbx/legalrag3`.
 - No production application behavior changes.
 - Local documentation checks pass.
 

@@ -78,7 +78,7 @@ For normal work, Codex should:
 
 1. Read issue scope from Linear through `scripts/linear_cli.py`.
 2. Move the issue to `Codex Running` while working.
-3. Post a completion comment with summary, checks, OpenSpec status, GitHub state, and blockers.
+3. Post a completion comment with summary, checks, GitHub state, and blockers.
 4. Move the issue to `Done`, `Review`, or `Blocked`.
 
 If `LINEAR_API_KEY` is missing, Codex should stop and ask the human to configure it rather than silently falling back to browser automation for routine work.
